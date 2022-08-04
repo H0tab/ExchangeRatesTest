@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ExchangeRatesTest.DataAccess.Models;
+using ExchangeRatesTest.DataAccess.Queries;
 using ExchangeRatesTest.DataAccess.Repositories.Abstract;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,10 +19,17 @@ namespace ExchangeRatesTest.DataAccess.Repositories.Implementations
             _dbContext = dbContext;
         }
 
-
         public async Task<IEnumerable<Valute>> GetAll()
         {
             return await _dbContext.Valutes.ToListAsync();
+        }
+
+        public async Task<IEnumerable<Valute>> GetAll(ValuteQueryParameters parameters)
+        {
+            return await _dbContext.Valutes
+                .Skip((parameters.PageNumber - 1) * parameters.PageSize)
+                .Take(parameters.PageSize)
+                .ToListAsync();
         }
 
         public async Task<Valute> GetById(string id)
