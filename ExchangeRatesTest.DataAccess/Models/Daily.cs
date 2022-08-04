@@ -11,5 +11,5 @@ public class Daily
     public DateTime Date { get; set; }
     public DateTime PreviousDate { get; set; }
     public DateTime Timestamp { get; set; }
-    public List<Valute> Valutes { get; set; }
+    public List<Valute> Valute { get; set; }
 }
